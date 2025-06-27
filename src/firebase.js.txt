@@ -1,0 +1,22 @@
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC-7MgkEby5G7TOH05Z99DYckD3RtNHjbA",
+  authDomain: "huashang-hais-app.firebaseapp.com",
+  projectId: "huashang-hais-app",
+  storageBucket: "huashang-hais-app.firebasestorage.app",
+  messagingSenderId: "56335633216",
+  appId: "1:56335633216:web:729505dbf83f40f357c8a5",
+  measurementId: "G-2WV3LNQF94"
+};
+
+const app = initializeApp(firebaseConfig);
+
+// Export Firebase services to use in other components
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
