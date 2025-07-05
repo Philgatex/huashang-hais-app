@@ -1,10 +1,39 @@
-export default function HomePage() {
+"use client";
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+
+// This component now acts as a gatekeeper at the root of the app.
+export default function GatekeeperPage() {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    // This effect runs on the client after hydration.
+    // It waits until the mock auth state is resolved.
+    if (!isLoading) {
+      if (user) {
+        // If a user is "logged in" from the mock context, go to the dashboard.
+        router.replace('/dashboard');
+      } else {
+        // If no user, go to the login page.
+        router.replace('/login');
+      }
+    }
+  }, [user, isLoading, router]);
+
+  // Render a loading state to prevent flash of unstyled content
+  // or a brief moment at the wrong route.
   return (
-    <main className="flex items-center justify-center h-screen">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Huashang HAIS App</h1>
-        <p className="text-lg text-gray-600">Your smart HR & Payroll assistant.</p>
+      <div className="flex h-screen w-screen items-center justify-center bg-background">
+        <div className="flex flex-col items-center space-y-4">
+            <svg className="animate-spin h-12 w-12 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p className="text-lg text-foreground">Loading Huashang HAIS...</p>
+        </div>
       </div>
-    </main>
   );
 }
