@@ -1,6 +1,6 @@
 "use client"; // This layout uses client-side hooks (useAuth) via AppShell
 
-import { AppShell } from '@/components/layout/AppShell';
+import { AppShell } from '../../components/layout/AppShell';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
